@@ -79,7 +79,7 @@ def parser(a):
                 while(counter03>-1):
                      if (list2[counter03]=="(" or counter03==0) :
                          if 0==0:
-                             tt=".var"+str(vars0+counter)
+                             tt=""
                              list4=list4+[tt+"="]
                              xy=len(list4)-1
                              for counter5 in range(counter03-1,list3[b]+1):
