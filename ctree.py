@@ -1,191 +1,175 @@
-        
-class nodes:
-    def __init__(self,value):
-        self.value=value
-        self.nexts=None
-        self.childs=None
-
-    def report(self):
-        stack=[]
-        ttrue=True
-        back=self
-        
-        while ttrue:
+global counter
+counter=0
+def parser(a):
+    global counter
+    list1=[""]
+    list2=[]
+    list3=[]
+    list4=[]
+    l=0
+    c="(),+-=/\\%&\""
+    count=0;
+    for b in a:
+         if b in c:
+             list1=list1+[""+b]
+             list1=list1+[""]
+             
+         else:
+             l=len(list1)-1
+             list1[l]=list1[l]+""+b
+    for b in list1:
+        if len(b.strip())>0:
+            list2=list2+[b.strip()]
+    l=len(list2)
+    t=False
+    starts=False
+    sstarts=False
+    for b in range(len(list2)):
+        lis=len(list2[b])
+        if lis>0:
+            ll=list2[b]
+            s=""
+            if len(ll)>0:
+                s=ll[0]
             
-            if back!=None:
-                
-                print("    "*len(stack)+back.value)
-                if back.childs!=None:
-                    stack=stack+[back]
-                    back=back.childs
-                else:
-                    if back.nexts!=None:
-                        back=back.nexts
-                    else:
-                        if len(stack)>0:
-                            back=stack.pop()
-                            back=back.nexts
+            if b+1<l:
+                if list2[b+1]=="(":
+                    if (s>="A" or s>="a") and (s<="Z" or s<="z"):
+                        
+                        t=True
+            if starts:
+                if s=='\"':
+                    sstarts=True
+            if not(t):
+                 if not(starts): 
+                    if(s>="A" or s>="a") and (s<="Z" or s<="z"): 
+                        pass
+                    elif(s>="0" and s<="9"):
+                        if "." in list2[b]:
+                           pass
                         else:
-                            ttrue=False
-                            
-            else:
-                ttrue=False
-            
-           
-
-
-
-def attributs(content,simbols):
+                            pass
+                    elif s=="\"":
+                        
+                        starts=not(starts)
+                    elif s in c:
+                        list3=list3+[b]
+                        pass
+                    else:
+                        pass
+            if s=="\"" and sstarts:
+                starts=not(starts)
+            t=False
+    #counter=0
+    counter2=0
+    counter3=0
+    counter4=0
+    counter5=0
+    vars0=0
+    #counter=0
     ttrue=True
-    cursors=0
-    pos=0
-    posactual=0
-    posactual2=0
-    posactual3=0
-    returnlist=[]
-    chars=""
-    returnstring=""
-    ons=0
-    
-    while ttrue:
-        chars=""
-        posactual=-1
-        pos=-1
-        for simbol in simbols:
-            posactual=content.find(simbol,ons)
-            if posactual!=-1:
-                if posactual<=pos or pos==-1:
-                    pos=posactual
-                    chars=simbol
-        if pos>-1:
-            
-            if chars=="'" or chars=='"':
-                posactual3=content.find('"',pos+1)
-                posactual2=content.find("'",pos+1)
-                if posactual3<0:
-                    posactual3=posactual2
-                if posactual2<0:
-                    posactual2=posactual3
-                if posactual3<posactual2:
-                    posactual2=posactual3
-                if posactual2>-1:
-                    pos=posactual2+1
-                    ons=pos
-                    
-            
-            
-            if chars==simbols[0]:
-                returnstring=content[cursors:pos].strip()
-                if 0==0:
-                     returnstring=returnlist=returnlist+[returnstring]
-                     
-                cursors=pos+1
-                    
-                ons=cursors
-                
-        else:
-            returnstring=content[cursors:].strip()
-            
+    for b in range(len(list3)):
+        if list2[list3[b]]==")":
+            counter2=b
+            counter3=b
+            counter4=0
             if 0==0:
-                returnlist=returnlist+[returnstring]
-            ttrue=False
-    
-    return returnlist
-def adds(tree,n,counts,tabs,stack):
-    if counts==1:
-        if tabs<0:
-            tabs=0
-            return tree,tabs,stack
-        else:
-            tabs=tabs+1  
-    if tabs>len(stack):
-        nodex=nodes(n.strip())
-        stack[len(stack)-1].childs=nodex
-        stack=stack+[nodex]
-    elif tabs==len(stack):
-        if tabs==len(stack):
-            nodex=nodes(n.strip())
-            stack[len(stack)-1].nexts=nodex
-            stack[len(stack)-1]=nodex
-    elif tabs<len(stack):
-             ttrue=True
-             nodex=None
-             while ttrue:
-                 if tabs<len(stack):
-                     nodex=stack.pop()  
-                 else:
-                     ttrue=False
-                 
-             nodex=nodes(n.strip())
-             stack[len(stack)-1].nexts=nodex
-             stack[len(stack)-1]=nodex
-    return tree,tabs,stack
-def getScript(content, simbols1,simbols2):
-    returnscript=[]
-    ttrue=True
-    pos=0
-    pos2=0
-    cursorStart=-1
-    cursorEnd=-1
-    while ttrue:
-        cursorStart=-1
-        cursorEnd=-1
+                counter03=list3[b]
+                counter4=0
+                while(counter03>-1):
+                     if (list2[counter03]=="(" or counter03==0) :
+                         if 0==0:
+                             tt="var"+str(vars0+counter)
+                             list4=list4+[tt+"="]
+                             xy=len(list4)-1
+                             for counter5 in range(counter03-1,list3[b]+1):
+                                 list4[xy]=list4[xy]+list2[counter5]
+                                 if counter5==counter03-1:
+                                     list2[counter5]=tt
+                                 else:
+                                     list2[counter5]=""
+                                 counter03=-1
+                                 
+                             
+                         
+                         counter4=counter4+1
+                     counter03=counter03-1
+            counter=counter+1
+    return list4
 
-        for n in simbols1:
-            pos=content.find(n)
-            if pos>-1:
-                if cursorStart==-1:
-                    cursorStart=pos
-                elif pos<cursorStart:
-                    cursorStart=pos
-        for n in simbols2:
-            pos2=content.find(n)
-            if pos2>-1:
-                if cursorEnd==-1:
-                    cursorEnd=pos2
-                elif pos2<cursorEnd:
-                    cursorEnd=pos2
-        if cursorStart>-1 and cursorEnd>-1:
-            cursorEnd=cursorEnd+len(simbols2[0])
-            returnscript=returnscript+[content[cursorStart:cursorEnd]]
-            
-            cont1=content[cursorEnd:]
-            content=content[:cursorStart]+cont1
-        else:
-            ttrue=False 
+class TreeNode:
+    def __init__(self, content=""):
+        self.content = content.strip()
+        self.children = []
 
-            
-    return returnscript,content
-def processs(content):
-    trees=nodes("cs")
-    stack=[trees]
-    tabs=1
-    l1=["}","'",'"']
-    tags=attributs(content,l1)
-    
-    
-    for tag in tags:
-        l1=["{","'",'"']
-        listtags=attributs(tag,l1)
-        
-        count=0
-        for ttag in listtags:
-            ttag=ttag.strip()
-            if count==1:
-                trees,tabs,stack=adds(trees,"{" + ttag + "}",count,tabs,stack)
+    def __repr__(self, level=0):
+        indent = " " * (level * 4)
+        result=""
+        bbb=self.content.split(";")
+        for bb in bbb:
+            aaa=parser(bb)
+            if len(aaa)<1:
+                result =result+indent+bb+"\n"
             else:
-                if ttag!="":
-                    trees,tabs,stack=adds(trees,ttag,count,tabs,stack)
-            count+=1
-        tabs=tabs-1
-    return trees
-files=input("give me a .c file? ")
-f1=open(files,"r")
-contents=f1.read()
-f1.close()
-contents=contents.replace("\n","\\n")
-contents=contents.replace("\r","\\r")
-contentss=processs(contents)
-contentss.report()
+                for n in aaa:
+                    result =result+indent+n+"\n"
+        
+        for child in self.children:
+            result += child.__repr__(level + 1)
+            
+        return result
 
+
+def parse_ctree_tree(file_path):
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = file.read()
+
+    stack = []
+    root = TreeNode("root")
+    current_node = root
+    buffer = ""
+
+    for char in data:
+        if char == "{":
+            # Cria um novo nó com o conteúdo atual do buffer
+            if buffer.strip():
+                new_node = TreeNode(buffer)
+                current_node.children.append(new_node)
+                stack.append(current_node)
+                current_node = new_node
+            buffer = ""
+        elif char == "}":
+            # Finaliza o conteúdo do nó atual
+            if buffer.strip():
+                current_node.children.append(TreeNode(buffer))
+            buffer = ""
+            if stack:
+                current_node = stack.pop()
+        elif char == ";":
+            # Finaliza o buffer para criar nós no mesmo nível
+            if buffer.strip():
+                current_node.children.append(TreeNode(buffer))
+            buffer = ""
+        else:
+            buffer += char
+
+    return root
+
+
+def main():
+    file_name = input("Enter the name of the C file to load: ")
+
+    try:
+        tree = parse_ctree_tree(file_name)
+        print("\nParsed C Tree:")
+        print(tree)
+    except FileNotFoundError:
+        print(f"Error: The file '{file_name}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+if __name__ == "__main__":
+    print("\033c\033[40;37m\n")
+    main()
 
