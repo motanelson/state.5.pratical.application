@@ -80,7 +80,7 @@ def parser(a):
                      if (list2[counter03]=="(" or counter03==0) :
                          if 0==0:
                              tt=""
-                             list4=list4+[tt+"="]
+                             list4=list4+[tt+""]
                              xy=len(list4)-1
                              for counter5 in range(counter03-1,list3[b]+1):
                                  list4[xy]=list4[xy]+list2[counter5]
